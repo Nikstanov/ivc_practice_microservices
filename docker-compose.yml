@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  department-db:
+    image: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: department_db
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+  department-service:
+    build:
+      context: department-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - department-db
+  employee-db:
+    image: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: employee_db
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+  employee-service:
+    build:
+      context: employee-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - employee-db

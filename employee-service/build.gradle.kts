@@ -1,12 +1,14 @@
 plugins {
 	java
-	id("org.springframework.boot") version "3.2.6"
+	id("org.springframework.boot") version "3.3.0"
 	id("io.spring.dependency-management") version "1.1.5"
 	id("org.asciidoctor.jvm.convert") version "3.3.2"
 }
 
 group = "com.ivc.nikstanov"
 version = "0.0.1-SNAPSHOT"
+
+extra["springCloudVersion"] = "2023.0.2"
 
 java {
 	toolchain {
@@ -28,6 +30,8 @@ extra["snippetsDir"] = file("build/generated-snippets")
 
 dependencies {
 	implementation("org.mapstruct:mapstruct:1.5.5.Final")
+	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -55,3 +59,14 @@ tasks.asciidoctor {
 	inputs.dir(project.extra["snippetsDir"]!!)
 	dependsOn(tasks.test)
 }
+
+ext {
+	set("springCloudVersion", "2023.0.2")
+}
+
+dependencyManagement {
+	imports {
+		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+	}
+}
+

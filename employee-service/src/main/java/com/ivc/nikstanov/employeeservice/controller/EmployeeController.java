@@ -1,5 +1,6 @@
 package com.ivc.nikstanov.employeeservice.controller;
 
+import com.ivc.nikstanov.employeeservice.dto.APIResponseDto;
 import com.ivc.nikstanov.employeeservice.dto.EmployeeDto;
 import com.ivc.nikstanov.employeeservice.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,8 +44,8 @@ public class EmployeeController {
             description = "HTTP Status 200 SUCCESS"
     )
     @GetMapping("{id}")
-    public ResponseEntity<EmployeeDto> getEmployee(@PathVariable("id") @Validated @Min(0) long id){
-        EmployeeDto result = employeeService.findEmployeeById(id);
+    public ResponseEntity<APIResponseDto> getAllInfoOfEmployeeById(@PathVariable("id") @Validated @Min(0) long id){
+        APIResponseDto result = employeeService.findEmployeeById(id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

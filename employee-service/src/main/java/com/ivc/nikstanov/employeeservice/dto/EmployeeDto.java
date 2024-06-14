@@ -40,6 +40,12 @@ public class EmployeeDto {
     @Email(message = "Incorrect email adress", groups = {Save.class})
     private String email;
 
+    @Schema(
+            description = "code of employee's department"
+    )
+    @NotEmpty(message = "department code should not be empty", groups = {Save.class})
+    private String departmentCode;
+
     public interface Save{}
     public interface Update{}
 

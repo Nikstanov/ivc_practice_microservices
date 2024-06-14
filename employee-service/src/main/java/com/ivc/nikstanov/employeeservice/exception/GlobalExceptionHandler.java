@@ -23,6 +23,10 @@ import java.util.Map;
 @Slf4j
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+    public enum ErrorCodes{
+        RESOURCE_NOT_FOUND, DEPARTMENT_ALREADY_EXISTS, INTERNAL_SERVER_ERROR
+    }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorDetails> handleResourceNotFoundException(ResourceNotFoundException exception,
@@ -32,7 +36,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 LocalDateTime.now(),
                 exception.getMessage(),
                 webRequest.getDescription(false),
-                "EMPLOYEE_NOT_FOUND"
+                ErrorCodes.RESOURCE_NOT_FOUND.toString()
         );
 
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
@@ -47,7 +51,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 LocalDateTime.now(),
                 exception.getMessage(),
                 webRequest.getDescription(false),
-                "DEPARTMENT_ALREADY_EXISTS"
+                ErrorCodes.DEPARTMENT_ALREADY_EXISTS.toString()
         );
 
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
@@ -62,7 +66,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 LocalDateTime.now(),
                 exception.getMessage(),
                 webRequest.getDescription(false),
-                "INTERNAL SERVER ERROR"
+                ErrorCodes.INTERNAL_SERVER_ERROR.toString()
         );
 
         log.error(errorDetails.toString());

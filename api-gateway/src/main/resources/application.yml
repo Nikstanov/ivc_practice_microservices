@@ -3,16 +3,28 @@ spring:
     name: API-GATEWAY
   cloud:
     gateway:
-      routes:
-        - id: EMPLOYEE-SERVICE
-          uri: lb://EMPLOYEE-SERVICE
-          predicates:
-            - Path=/api/employees/**
-        - id: DEPARTMENT-SERVICE
-          uri: lb://DEPARTMENT-SERVICE
-          predicates:
-            - Path=/api/departments/**
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+#      routes:
+#        - id: EMPLOYEE-SERVICE
+#          uri: lb://EMPLOYEE-SERVICE
+#          predicates:
+#            - Path=/api/employees/**
+#        - id: DEPARTMENT-SERVICE
+#          uri: lb://DEPARTMENT-SERVICE
+#          predicates:
+#            - Path=/api/departments/**
 
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway:
+            handler:
+              RoutePredicateHandlerMapping: DEBUG
 
 server:
   port: 9191

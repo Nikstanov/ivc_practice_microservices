@@ -19,7 +19,7 @@ services:
     build:
       context: department-service
     ports:
-      - "8080:8080"
+      - "8081:8080"
     depends_on:
       - department-db
       - service-registry
@@ -37,7 +37,14 @@ services:
     build:
       context: employee-service
     ports:
-      - "8081:8081"
+      - "8082:8081"
     depends_on:
       - employee-db
+      - service-registry
+  api-gateway:
+    build:
+      context: api-gateway
+    ports:
+      - "9191:9191"
+    depends_on:
       - service-registry

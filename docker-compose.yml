@@ -1,5 +1,9 @@
 version: "3.9"
 services:
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - "15672:15672"
   service-registry:
     build:
       context: service-registry
@@ -7,7 +11,21 @@ services:
       - "8761:8761"
     healthcheck:
       test: wget --no-verbose --tries=1 --spider localhost:8761/actuator/health/readiness || exit 1
-      interval: 5s
+      interval: 10s
+      retries: 5
+      start_period: 5s
+      timeout: 10s
+  config-server:
+    build:
+      context: config-server
+    ports:
+      - "8888:8888"
+    depends_on:
+      service-registry:
+        condition: service_healthy
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider localhost:8888/actuator/health/readiness || exit 1
+      interval: 10s
       retries: 5
       start_period: 5s
       timeout: 10s
@@ -27,8 +45,12 @@ services:
     ports:
       - "8081:8080"
     depends_on:
-      - department-db
-      - service-registry
+      department-db:
+        condition: service_started
+      service-registry:
+        condition: service_started
+      config-server:
+        condition: service_healthy
   employee-db:
     image: postgres
     environment:
@@ -45,8 +67,12 @@ services:
     ports:
       - "8082:8081"
     depends_on:
-      - employee-db
-      - service-registry
+      employee-db:
+        condition: service_started
+      service-registry:
+        condition: service_started
+      config-server:
+        condition: service_healthy
   api-gateway:
     build:
       context: api-gateway
@@ -54,4 +80,6 @@ services:
       - "9191:9191"
     depends_on:
       service-registry:
+        condition: service_healthy
+      config-server:
         condition: service_healthy

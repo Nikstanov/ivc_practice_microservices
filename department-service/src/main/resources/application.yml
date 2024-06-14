@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: DEPARTMENT-SERVICE
+  config:
+    import: optional:configserver:http://config-server:8888
+  rabbitmq:
+    host: rabbitmq
+    port: 15672
+    username: quest
+    password: quest
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    username: admin
+#    password: admin
+#    url: jdbc:postgresql://department-db:5432/department_db
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#        ddl-auto: create
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#
+#logging:
+#  level:
+#    ROOT: INFO
+#    org.springframework.cloud.config: DEBUG
+#
+#
+#server:
+#  port: 8080
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#
+#springdoc:
+#  swagger-ui:
+#    path : /gui-docs
+#  api-docs:
+#    path : /api-docs
+#
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://service-registry:8761/eureka/

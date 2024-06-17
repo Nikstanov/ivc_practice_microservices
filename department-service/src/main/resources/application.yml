@@ -3,13 +3,13 @@ spring:
     name: DEPARTMENT-SERVICE
   config:
     import: optional:configserver:http://config-server:8888
-  rabbitmq:
-    host: rabbitmq
-    port: 5672
-    username: quest
-    password: quest
-  zipkin:
-    base-url: http://zipkin:9411/
+#  rabbitmq:
+#    host: rabbitmq
+#    port: 5672
+#    username: quest
+#    password: quest
+#  zipkin:
+#    base-url: http://zipkin:9411/
 #  datasource:
 #    driver-class-name: org.postgresql.Driver
 #    username: admin
@@ -49,18 +49,18 @@ spring:
 #    service-url:
 #      defaultZone: http://service-registry:8761/eureka/
 
-logging:
-  level:
-    org:
-      springframework:
-        web: DEBUG
-  pattern:
-    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
-
-management:
-  tracing:
-    sampling:
-      probability: 1.0
-  zipkin:
-    tracing:
-      endpoint: http://zipkin:9411/api/v2/spans
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        web: DEBUG
+#  pattern:
+#    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+#
+#management:
+#  tracing:
+#    sampling:
+#      probability: 1.0
+#  zipkin:
+#    tracing:
+#      endpoint: http://zipkin:9411/api/v2/spans

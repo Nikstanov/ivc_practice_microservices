@@ -22,4 +22,9 @@ public class APIResponseDto {
             description = "Employee's department info"
     )
     private DepartmentDto department;
+
+    @Schema(
+            description = "Employee's organization info"
+    )
+    private OrganizationDto organization;
 }

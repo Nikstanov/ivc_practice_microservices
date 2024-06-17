@@ -46,6 +46,12 @@ public class EmployeeDto {
     @NotEmpty(message = "department code should not be empty", groups = {Save.class})
     private String departmentCode;
 
+    @Schema(
+            description = "code of employee's organization"
+    )
+    @NotEmpty(message = "organization code should not be empty", groups = {Save.class})
+    private String organizationCode;
+
     public interface Save{}
     public interface Update{}
 

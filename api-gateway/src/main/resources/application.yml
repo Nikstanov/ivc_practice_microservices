@@ -1,6 +1,8 @@
 spring:
   application:
     name: API-GATEWAY
+  zipkin:
+    base-url: http://zipkin:9411/
   cloud:
     gateway:
 #      discovery:
@@ -18,9 +20,12 @@ spring:
             - Path=/api/departments/**
 
 logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
   level:
     org:
       springframework:
+        web: DEBUG
         cloud:
           gateway:
             handler:
@@ -35,6 +40,12 @@ eureka:
       defaultZone: http://service-registry:8761/eureka/
 
 management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
   endpoints:
     web:
       exposure:

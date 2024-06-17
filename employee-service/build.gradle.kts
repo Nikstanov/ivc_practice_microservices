@@ -40,6 +40,11 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
+	implementation("io.micrometer:micrometer-tracing-bridge-brave:1.3.1")
+	implementation("io.micrometer:micrometer-observation:1.13.1")
+	implementation("io.zipkin.reporter2:zipkin-reporter-brave:3.4.0")
+	testImplementation("io.github.openfeign:feign-micrometer:13.2.1")
+
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

@@ -1,9 +1,19 @@
 version: "3.9"
 services:
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
   rabbitmq:
     image: rabbitmq
+    hostname: rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: quest
+      RABBITMQ_DEFAULT_PASS: quest
+
     ports:
-      - "15672:15672"
+      - "5672:5672"
   service-registry:
     build:
       context: service-registry
@@ -42,6 +52,7 @@ services:
   department-service:
     build:
       context: department-service
+    restart: always
     ports:
       - "8081:8080"
     depends_on:
@@ -64,6 +75,7 @@ services:
   employee-service:
     build:
       context: employee-service
+    restart: always
     ports:
       - "8082:8081"
     depends_on:

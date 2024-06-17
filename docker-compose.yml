@@ -54,7 +54,7 @@ services:
       context: department-service
     restart: always
     ports:
-      - "8080:8080"
+      - "8081:8080"
     depends_on:
       department-db:
         condition: service_started
@@ -77,7 +77,7 @@ services:
       context: employee-service
     restart: always
     ports:
-      - "8081:8080"
+      - "8082:8080"
     depends_on:
       employee-db:
         condition: service_started
@@ -101,7 +101,7 @@ services:
       context: organization-service
     restart: always
     ports:
-      - "8082:8080"
+      - "8083:8080"
     depends_on:
       employee-db:
         condition: service_started
@@ -120,3 +120,9 @@ services:
         condition: service_healthy
       config-server:
         condition: service_healthy
+
+  frontend:
+    build:
+      context: react-frontend
+    ports:
+      - "8080:3000"

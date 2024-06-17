@@ -31,7 +31,6 @@ extra["snippetsDir"] = file("build/generated-snippets")
 dependencies {
 	implementation("org.mapstruct:mapstruct:1.5.5.Final")
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
-
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -42,9 +41,10 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
 	implementation("io.micrometer:micrometer-tracing-bridge-brave:1.3.1")
 	implementation("io.micrometer:micrometer-observation:1.13.1")
+	implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
+	implementation("org.springframework.boot:spring-boot-starter-aop")
 	implementation("io.zipkin.reporter2:zipkin-reporter-brave:3.4.0")
 	testImplementation("io.github.openfeign:feign-micrometer:13.2.1")
-
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

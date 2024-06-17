@@ -5,6 +5,11 @@ spring:
     base-url: http://zipkin:9411/
   cloud:
     gateway:
+      globalcors:
+        corsConfiguration:
+          [/**]:
+            allowedOrigins: "*"
+            allowedMethods: GET, POST, PUT, DELETE
 #      discovery:
 #        locator:
 #          enabled: true

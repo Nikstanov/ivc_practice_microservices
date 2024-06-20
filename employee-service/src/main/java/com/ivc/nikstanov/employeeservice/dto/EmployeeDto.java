@@ -1,5 +1,6 @@
 package com.ivc.nikstanov.employeeservice.dto;
 
+import com.ivc.nikstanov.employeeservice.utill.validation.constraint.ValidatedName;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -25,6 +26,7 @@ public class EmployeeDto {
             description = "Employee firstname"
     )
     @NotEmpty(message = "Firstname should not be empty", groups = {Save.class})
+    @ValidatedName(message = "Firstname should be in Latin, without spaces, starting with a capital letter and 2-256 characters long", groups = {Save.class, Update.class})
     private String firstName;
 
     @Schema(

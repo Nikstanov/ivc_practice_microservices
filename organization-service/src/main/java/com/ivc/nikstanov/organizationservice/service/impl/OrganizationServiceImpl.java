@@ -16,7 +16,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Override
     public Organization saveOrganization(Organization organization) {
-        organizationRepository.findByOrganizationCode(organization.getOrganizationCode()).ifPresent((value) -> {
+        organizationRepository.findByOrganizationCode(organization.getOrganizationCode()).ifPresent(value -> {
             throw new OrganizationAlreadyExistsException(String.format("Organization with code %s already exists", value.getOrganizationCode()));
         });
         return organizationRepository.save(organization);

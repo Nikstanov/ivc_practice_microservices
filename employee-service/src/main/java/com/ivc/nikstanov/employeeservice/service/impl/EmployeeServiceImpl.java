@@ -11,10 +11,14 @@ import com.ivc.nikstanov.employeeservice.repository.EmployeeRepository;
 import com.ivc.nikstanov.employeeservice.service.DepartmentAPIClient;
 import com.ivc.nikstanov.employeeservice.service.EmployeeService;
 import com.ivc.nikstanov.employeeservice.service.OrganizationAPIClient;
-import com.ivc.nikstanov.employeeservice.utill.EmployeeMapper;
+import com.ivc.nikstanov.employeeservice.utill.mapper.EmployeeMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -29,7 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
 
-        employeeRepository.findByEmail(employeeDto.getEmail()).ifPresent((value) -> {
+        employeeRepository.findByEmail(employeeDto.getEmail()).ifPresent(value -> {
             throw new EmployeeAlreadyExistsException(String.format("Employee with email: %s already exists", employeeDto.getEmail()));
         });
 
@@ -55,6 +59,51 @@ public class EmployeeServiceImpl implements EmployeeService {
         OrganizationDto organizationDto = organizationAPIClient.getOrganization(resultemployee.getOrganizationCode());
 
         return new APIResponseDto(employeeMapper.mapToEmployeeDto(resultemployee), departmentDto, organizationDto);
+    }
+
+    @Override
+    public List<APIResponseDto> findEmployeesByValues(Map<String, String> value) {
+        log.info("Sorting by values: {}", value);
+        if(value.isEmpty()){
+            return employeeRepository.findAll().stream().map(employee -> {
+                DepartmentDto departmentDto = departmentApiClient.getDepartment(employee.getDepartmentCode());
+                OrganizationDto organizationDto = organizationAPIClient.getOrganization(employee.getOrganizationCode());
+                return new APIResponseDto(employeeMapper.mapToEmployeeDto(employee), departmentDto, organizationDto);
+            }).toList();
+        }
+        return employeeRepository.findAll().stream().filter(employee -> filterObjectByParameters(employee, value)).map(employee -> {
+            log.info("check employee {}", employee);
+
+            DepartmentDto departmentDto = departmentApiClient.getDepartment(employee.getDepartmentCode());
+            if(departmentDto != null && !filterObjectByParameters(departmentDto, value)){
+                    return null;
+            }
+
+            OrganizationDto organizationDto = organizationAPIClient.getOrganization(employee.getOrganizationCode());
+            if(organizationDto != null && !filterObjectByParameters(organizationDto, value)){
+                return null;
+            }
+
+            return new APIResponseDto(employeeMapper.mapToEmployeeDto(employee), departmentDto, organizationDto);
+        }).toList();
+    }
+
+    private boolean filterObjectByParameters(Object o, Map<String, String> params){
+        Field[] fields = o.getClass().getDeclaredFields();
+        for(Field field : fields){
+            if(params.containsKey(field.getName())){
+                try {
+                    log.info("Object contains field {} with value {}",field.getName(), field.get(o).toString());
+                    boolean result = params.get(field.getName()).equals(field.get(o).toString());
+                    if(!result){
+                        return false;
+                    }
+                } catch (IllegalAccessException e) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 

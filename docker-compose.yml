@@ -1,5 +1,6 @@
 version: "3.9"
 services:
+
   zipkin:
     image: openzipkin/zipkin
     ports:
@@ -10,7 +11,7 @@ services:
     restart: always
     environment:
       RABBITMQ_DEFAULT_USER: quest
-      RABBITMQ_DEFAULT_PASS: quest
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
 
     ports:
       - "5672:5672"
@@ -30,6 +31,8 @@ services:
       context: config-server
     ports:
       - "8888:8888"
+    environment:
+      ENCRYPT_KEY: ${ENCRYPT_KEY}
     depends_on:
       service-registry:
         condition: service_healthy
@@ -43,8 +46,7 @@ services:
     image: postgres
     environment:
       POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: department_db
     ports:
       - "5432:5432"
@@ -66,8 +68,7 @@ services:
     image: postgres
     environment:
       POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: employee_db
     ports:
       - "5433:5432"
@@ -76,6 +77,9 @@ services:
     build:
       context: employee-service
     restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: "dev"
+      SPRING_CONFIG_IMPORT : optional:configserver:http://config-server:8888
     ports:
       - "8082:8080"
     depends_on:
@@ -90,8 +94,7 @@ services:
     image: postgres
     environment:
       POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: organization_db
     ports:
       - "5434:5432"
@@ -121,8 +124,8 @@ services:
       config-server:
         condition: service_healthy
 
-#  frontend:
-#    build:
-#      context: react-frontend
-#    ports:
-#      - "8080:3000"
+  frontend:
+    build:
+      context: react-frontend
+    ports:
+      - "8080:3000"

@@ -11,7 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @OpenAPIDefinition(
 		info = @Info(
-				title = "Ivc practice documentation - Employee	 service",
+				title = "Ivc practice documentation - Employee service",
 				description = "Spring boot documentation for microservices project",
 				version = "0.0.1",
 				contact = @Contact(

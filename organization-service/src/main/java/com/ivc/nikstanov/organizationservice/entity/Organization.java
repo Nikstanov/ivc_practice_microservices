@@ -23,8 +23,10 @@ public class Organization {
     @Column(nullable = false)
     private String organizationName;
     private String organizationDescription;
+
     @Column(nullable = false, unique = true)
     private String organizationCode;
     @CreationTimestamp
+
     private LocalDateTime creationDate;
 }

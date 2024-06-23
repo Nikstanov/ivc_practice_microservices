@@ -1,4 +1,4 @@
-package com.ivc.nikstanov.employeeservice.utill;
+package com.ivc.nikstanov.employeeservice.utill.mapper;
 
 import com.ivc.nikstanov.employeeservice.dto.EmployeeDto;
 import com.ivc.nikstanov.employeeservice.entity.Employee;

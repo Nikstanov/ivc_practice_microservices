@@ -1,6 +1,8 @@
 spring:
   application:
     name: CONFIG-SERVER
+  profiles:
+    active: git
   cloud:
     config:
       server:
@@ -8,9 +10,11 @@ spring:
           skipSslValidation: true
           uri: https://github.com/Nikstanov/ivc_practice_microservices_configs
           clone-on-start: true
-          default-label: main
 server:
   port: 8888
+
+encrypt:
+  key: default_encrypt_key
 
 eureka:
   client:

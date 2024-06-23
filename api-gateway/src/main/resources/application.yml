@@ -14,10 +14,6 @@ spring:
               - POST
               - DELETE
               - PUT
-#      discovery:
-#        locator:
-#          enabled: true
-#          lower-case-service-id: true
       routes:
         - id: EMPLOYEE-SERVICE
           uri: lb://EMPLOYEE-SERVICE
@@ -48,6 +44,11 @@ server:
   port: 9191
 
 eureka:
+  instance:
+    metadataMap:
+      "prometheus.scrape": "true"
+      "prometheus.path": "/actuator/prometheus"
+      "prometheus.port": "8080"
   client:
     service-url:
       defaultZone: http://service-registry:8761/eureka/

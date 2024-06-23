@@ -25,9 +25,17 @@ repositories {
 }
 
 extra["snippetsDir"] = file("build/generated-snippets")
+val mapstructVersion = "1.5.5.Final"
+val micrometerBomVersion = "1.13.1"
+val lombokMapstructBindingVersion = "0.2.0"
+val micrometerTracingBridgeBraveVersion = "1.3.1"
+val micrometerObservationVersion = "1.13.1"
+val zipkinReporterBraveVersion = "3.4.0"
+val feignMicrometerVersion = "13.2.1"
+val springDocVersion = "2.5.0"
 
 dependencies {
-	implementation("org.mapstruct:mapstruct:1.5.5.Final")
+	implementation("org.mapstruct:mapstruct:${mapstructVersion}")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -35,19 +43,24 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 	implementation("org.springframework.cloud:spring-cloud-starter-config")
 	implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp")
-	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
-	implementation("io.micrometer:micrometer-tracing-bridge-brave:1.3.1")
-	implementation("io.micrometer:micrometer-observation:1.13.1")
-	implementation("io.zipkin.reporter2:zipkin-reporter-brave:3.4.0")
-	testImplementation("io.github.openfeign:feign-micrometer:13.2.1")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}")
 
+	implementation("io.micrometer:micrometer-tracing-bridge-brave")
+	implementation("io.micrometer:micrometer-observation")
+	implementation("io.micrometer:micrometer-core")
+	implementation("io.zipkin.reporter2:zipkin-reporter-brave")
+
+	runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+	runtimeOnly("org.postgresql:postgresql")
 
 	compileOnly("org.projectlombok:lombok")
-	runtimeOnly("org.postgresql:postgresql")
+
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	annotationProcessor("org.projectlombok:lombok")
-	annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
-	annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")
+	annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}")
+	annotationProcessor("org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}")
+
+	testImplementation("io.github.openfeign:feign-micrometer:${feignMicrometerVersion}")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

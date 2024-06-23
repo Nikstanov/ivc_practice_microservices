@@ -28,6 +28,7 @@ repositories {
 
 extra["snippetsDir"] = file("build/generated-snippets")
 val mapstructVersion = "1.5.5.Final"
+val micrometerBomVersion = "1.13.1"
 val lombokMapstructBindingVersion = "0.2.0"
 val micrometerTracingBridgeBraveVersion = "1.3.1"
 val micrometerObservationVersion = "1.13.1"
@@ -48,14 +49,18 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}")
-	implementation("io.micrometer:micrometer-tracing-bridge-brave:${micrometerTracingBridgeBraveVersion}")
-	implementation("io.micrometer:micrometer-observation:${micrometerObservationVersion}")
 	implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
 	implementation("org.springframework.boot:spring-boot-starter-aop")
-	implementation("io.zipkin.reporter2:zipkin-reporter-brave:${zipkinReporterBraveVersion}")
+
+	implementation("io.micrometer:micrometer-tracing-bridge-brave")
+	implementation("io.micrometer:micrometer-observation")
+	implementation("io.micrometer:micrometer-core")
+	implementation("io.zipkin.reporter2:zipkin-reporter-brave")
+
+	runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+	runtimeOnly("org.postgresql:postgresql")
 
 	compileOnly("org.projectlombok:lombok")
-	runtimeOnly("org.postgresql:postgresql")
 
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	annotationProcessor("org.projectlombok:lombok")

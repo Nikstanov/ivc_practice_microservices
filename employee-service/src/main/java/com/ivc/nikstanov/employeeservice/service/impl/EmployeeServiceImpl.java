@@ -71,7 +71,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<FullEmployee> findEmployeesByDepartment(String departmentId) {
-        return employeeRepository.findByDepartmentCode(departmentId).stream().map(employee -> {
+        return employeeRepository.findAllByDepartmentCode(departmentId).stream().map(employee -> {
             DepartmentDto departmentDto = departmentApiClient.getDepartment(employee.getDepartmentCode());
             OrganizationDto organizationDto = organizationAPIClient.getOrganization(employee.getOrganizationCode());
             return new FullEmployee(employee, departmentDto, organizationDto);
@@ -80,7 +80,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<FullEmployee> findEmployeesByOrganization(String organizationId) {
-        return employeeRepository.findByOrganizationCode(organizationId).stream().map(employee -> {
+        return employeeRepository.findAllByOrganizationCode(organizationId).stream().map(employee -> {
             DepartmentDto departmentDto = departmentApiClient.getDepartment(employee.getDepartmentCode());
             OrganizationDto organizationDto = organizationAPIClient.getOrganization(employee.getOrganizationCode());
             return new FullEmployee(employee, departmentDto, organizationDto);
@@ -89,7 +89,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<FullEmployee> findEmployeesByOrganizationAndDepartment(String organizationId, String departmentId) {
-        return employeeRepository.findByOrganizationCodeAndDepartmentCode(organizationId, departmentId).stream().map(employee -> {
+        return employeeRepository.findAllByOrganizationCodeAndDepartmentCode(organizationId, departmentId).stream().map(employee -> {
             DepartmentDto departmentDto = departmentApiClient.getDepartment(employee.getDepartmentCode());
             OrganizationDto organizationDto = organizationAPIClient.getOrganization(employee.getOrganizationCode());
             return new FullEmployee(employee, departmentDto, organizationDto);

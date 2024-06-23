@@ -23,9 +23,13 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.cloud:spring-cloud-starter-gateway")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-	implementation("io.micrometer:micrometer-tracing-bridge-brave:1.3.1")
-	implementation("io.micrometer:micrometer-observation:1.13.1")
-	implementation("io.zipkin.reporter2:zipkin-reporter-brave:3.4.0")
+
+	implementation("io.micrometer:micrometer-tracing-bridge-brave")
+	implementation("io.micrometer:micrometer-observation")
+	implementation("io.micrometer:micrometer-core")
+	implementation("io.zipkin.reporter2:zipkin-reporter-brave")
+
+	runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")

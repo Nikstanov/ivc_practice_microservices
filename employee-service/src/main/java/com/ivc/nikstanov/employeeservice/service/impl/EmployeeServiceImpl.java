@@ -172,12 +172,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     @KafkaListener(topics = "${spring.kafka.topic.organization}", groupId = "${spring.kafka.consumer.group-id}")
     public void consumeOrganization(OrganizationEvent event){
         log.info("Organization event received => {}", event.toString());
-        //reset cache
+        organizationRedisRepository.deleteById(event.getOrganizationCode());
     }
 
     @KafkaListener(topics = "${spring.kafka.topic.department}", groupId = "${spring.kafka.consumer.group-id}")
     public void consumeDepartment(DepartmentEvent event){
         log.info("Department event received => {}", event.toString());
-        //reset cache
+        departmentRedisRepository.deleteById(event.getDepartmentCode());
     }
 }

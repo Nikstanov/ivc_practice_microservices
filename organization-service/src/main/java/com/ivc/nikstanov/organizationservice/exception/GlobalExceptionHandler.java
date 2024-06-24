@@ -24,7 +24,7 @@ import java.util.Map;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     public enum ErrorCodes{
-        RESOURCE_NOT_FOUND, DEPARTMENT_ALREADY_EXISTS, INTERNAL_SERVER_ERROR
+        RESOURCE_NOT_FOUND, ORGANIZATION_ALREADY_EXISTS, INTERNAL_SERVER_ERROR
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -51,7 +51,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 LocalDateTime.now(),
                 exception.getMessage(),
                 webRequest.getDescription(false),
-                ErrorCodes.DEPARTMENT_ALREADY_EXISTS.toString()
+                ErrorCodes.ORGANIZATION_ALREADY_EXISTS.toString()
         );
 
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
@@ -83,7 +83,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         Map<String, String> errors = new HashMap<>();
         List<ObjectError> errorList = ex.getBindingResult().getAllErrors();
 
-        errorList.forEach((error) ->{
+        errorList.forEach(error ->{
             String fieldName = ((FieldError) error).getField();
             String message = error.getDefaultMessage();
             errors.put(fieldName, message);

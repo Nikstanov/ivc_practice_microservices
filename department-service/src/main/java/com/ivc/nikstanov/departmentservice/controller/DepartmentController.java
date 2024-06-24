@@ -47,4 +47,18 @@ public class DepartmentController {
         DepartmentDto result = departmentService.getDepartmentByCode(departmentCode);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @Operation(
+            summary = "Delete department by code REST API",
+            description = "Delete department by code REST API is used to delete a single organization from the database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "HTTP Status 200 SUCCESS"
+    )
+    @DeleteMapping("{code}")
+    public ResponseEntity<String> deleteDepartment(@PathVariable("code") String departmentCode){
+        departmentService.deleteDepartmentByCode(departmentCode);
+        return ResponseEntity.ok("Successfully deleted");
+    }
 }

@@ -6,4 +6,5 @@ public interface DepartmentService {
 
     DepartmentDto saveDepartment(DepartmentDto departmentDto);
     DepartmentDto getDepartmentByCode(String code);
+    void deleteDepartmentByCode(String code);
 }

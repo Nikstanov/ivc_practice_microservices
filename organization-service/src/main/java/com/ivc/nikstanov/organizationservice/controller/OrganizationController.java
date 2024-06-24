@@ -50,4 +50,18 @@ public class OrganizationController {
         return ResponseEntity.ok(organizationMapper.toOrganizationDto(result));
     }
 
+    @Operation(
+            summary = "Delete organization by code REST API",
+            description = "Delete organization by code REST API is used to delete a single organization from the database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "HTTP Status 200 SUCCESS"
+    )
+    @DeleteMapping("{code}")
+    public ResponseEntity<String> deleteOrganization(@PathVariable("code") String organizationCode){
+        organizationService.deleteOrganizationByCode(organizationCode);
+        return ResponseEntity.ok("Successfully deleted");
+    }
+
 }

@@ -47,6 +47,7 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-config")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+	implementation("org.springframework.kafka:spring-kafka")
 
 	implementation("io.micrometer:micrometer-tracing-bridge-brave")
 	implementation("io.micrometer:micrometer-observation")
@@ -62,6 +63,7 @@ dependencies {
 	annotationProcessor("org.mapstruct:mapstruct-processor:${mapstructVersion}")
 	annotationProcessor("org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.kafka:spring-kafka-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 

@@ -3,12 +3,14 @@ package com.ivc.nikstanov.employeeservice.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.redis.core.RedisHash;
 
 import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@RedisHash("organization")
 public class OrganizationDto {
 
     private Long id;

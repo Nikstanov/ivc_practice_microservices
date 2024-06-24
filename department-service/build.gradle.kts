@@ -44,6 +44,7 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-config")
 	implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}")
+	implementation("org.springframework.kafka:spring-kafka")
 
 	implementation("io.micrometer:micrometer-tracing-bridge-brave")
 	implementation("io.micrometer:micrometer-observation")

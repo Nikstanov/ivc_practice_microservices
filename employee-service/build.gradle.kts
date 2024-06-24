@@ -38,6 +38,7 @@ val springDocVersion = "2.5.0"
 
 
 dependencies {
+
 	implementation("org.mapstruct:mapstruct:${mapstructVersion}")
 	implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
@@ -51,6 +52,8 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocVersion}")
 	implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
 	implementation("org.springframework.boot:spring-boot-starter-aop")
+	implementation("org.springframework.kafka:spring-kafka")
+	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
 	implementation("io.micrometer:micrometer-tracing-bridge-brave")
 	implementation("io.micrometer:micrometer-observation")
